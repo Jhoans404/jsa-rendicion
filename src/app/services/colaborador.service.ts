@@ -13,7 +13,7 @@ export interface Colaborador {
   providedIn: 'root'
 })
 export class ColaboradorService {
-  private readonly baseUrl = 'http://localhost:3000/colaboradores';
+  private readonly baseUrl = 'https://jsa-rendicion.onrender.com/colaboradores';
 
   constructor(private http: HttpClient) {}
 

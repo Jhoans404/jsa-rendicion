@@ -27,7 +27,7 @@ export interface Rendicion {
   providedIn: 'root'
 })
 export class RendicionService {
-  private readonly baseUrl = 'http://localhost:3000/rendiciones';
+  private readonly baseUrl = 'https://jsa-rendicion.onrender.com/rendiciones';
 
   constructor(private http: HttpClient) {}
 

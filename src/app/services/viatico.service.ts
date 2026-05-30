@@ -21,7 +21,7 @@ export interface Viatico {
   providedIn: 'root'
 })
 export class ViaticoService {
-  private readonly baseUrl = 'http://localhost:3000/viaticos';
+  private readonly baseUrl = 'https://jsa-rendicion.onrender.com/viaticos';
 
   constructor(private http: HttpClient) {}
 
