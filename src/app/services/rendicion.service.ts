@@ -23,11 +23,13 @@ export interface Rendicion {
   boletas: Boleta[];
 }
 
+import { API_CONFIG } from '../api-config';
+
 @Injectable({
   providedIn: 'root'
 })
 export class RendicionService {
-  private readonly baseUrl = 'https://jsa-rendicion.onrender.com/rendiciones';
+  private readonly baseUrl = `${API_CONFIG.baseUrl}/rendiciones`;
 
   constructor(private http: HttpClient) {}
 

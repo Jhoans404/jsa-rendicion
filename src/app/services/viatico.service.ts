@@ -17,11 +17,13 @@ export interface Viatico {
   huellaArchivo?: string;
 }
 
+import { API_CONFIG } from '../api-config';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ViaticoService {
-  private readonly baseUrl = 'https://jsa-rendicion.onrender.com/viaticos';
+  private readonly baseUrl = `${API_CONFIG.baseUrl}/viaticos`;
 
   constructor(private http: HttpClient) {}
 

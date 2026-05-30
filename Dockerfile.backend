@@ -13,5 +13,5 @@ COPY db.json .
 # Expose port 3000
 EXPOSE 3000
 
-# Run json-server
-CMD ["json-server", "--watch", "db.json", "--port", "3000"]
+# Run json-server with CORS enabled
+CMD ["json-server", "--watch", "db.json", "--port", "3000", "--cors"]

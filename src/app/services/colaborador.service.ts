@@ -9,11 +9,13 @@ export interface Colaborador {
   nombres: string;
 }
 
+import { API_CONFIG } from '../api-config';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ColaboradorService {
-  private readonly baseUrl = 'https://jsa-rendicion.onrender.com/colaboradores';
+  private readonly baseUrl = `${API_CONFIG.baseUrl}/colaboradores`;
 
   constructor(private http: HttpClient) {}
 
