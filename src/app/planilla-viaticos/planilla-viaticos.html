@@ -1,0 +1,210 @@
+<section class="container">
+  <div class="row g-4">
+    <div class="col-lg-7">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h4 class="card-title">Planilla de viaticos</h4>
+          <form #form="ngForm" (ngSubmit)="enviar()">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">DNI</label>
+                <input
+                  class="form-control"
+                  name="dni"
+                  [(ngModel)]="model.dni"
+                  required
+                  maxlength="8"
+                />
+                @if (form.submitted && !model.dni) {
+                <div class="text-danger">
+                  DNI obligatorio
+                </div>
+                }
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Especialidad</label>
+                <select class="form-select" name="especialidad" [(ngModel)]="model.especialidad" required>
+                  <option value="" disabled selected>Seleccione especialidad</option>
+                  @for (item of especialidades; track item) {
+                  <option [value]="item">{{ item }}</option>
+                  }
+                </select>
+              </div>
+              <div class="col-md-12">
+                <label class="form-label">Apellidos y nombres</label>
+                <input
+                  class="form-control"
+                  name="nombres"
+                  [(ngModel)]="model.nombres"
+                  required
+                />
+                @if (form.submitted && !model.nombres) {
+                <div class="text-danger">
+                  Nombre obligatorio
+                </div>
+                }
+              </div>
+              <div class="col-md-12">
+                <label class="form-label">Motivo de comision</label>
+                <select class="form-select" name="motivo" [(ngModel)]="model.motivo" required>
+                  <option value="" disabled selected>Seleccione motivo</option>
+                  @for (item of motivos; track item) {
+                  <option [value]="item">{{ item }}</option>
+                  }
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Numero de dias</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="dias"
+                  [(ngModel)]="model.dias"
+                  (input)="calcularImporte()"
+                  min="1"
+                  required
+                  [class.is-invalid]="form.submitted && model.dias <= 0"
+                />
+                <div class="invalid-feedback">Dias debe ser mayor a 0</div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Monto por dia</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="montoDia"
+                  [(ngModel)]="model.montoDia"
+                  (input)="calcularImporte()"
+                  min="1"
+                  required
+                  [class.is-invalid]="form.submitted && model.montoDia <= 0"
+                />
+                <div class="invalid-feedback">Monto debe ser mayor a 0</div>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">Importe</label>
+                <input
+                  class="form-control"
+                  name="importe"
+                  [ngModel]="model.importe"
+                  readonly
+                />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Firma (opcional)</label>
+                <input class="form-control" type="file" name="firmaArchivo" (change)="manejarFirma($event)" />
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Huella (opcional)</label>
+                <input class="form-control" type="file" name="huellaArchivo" (change)="manejarHuella($event)" />
+              </div>
+            </div>
+            <div class="mt-4 d-flex gap-2">
+              <button class="btn btn-primary" type="submit" [disabled]="guardando">
+                {{ seleccion ? 'Actualizar' : 'Guardar' }}
+              </button>
+              <button class="btn btn-outline-secondary" type="button" (click)="limpiarFormulario()">
+                Limpiar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Resumen de viatico</h5>
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+              {{ model.nombres ? (model.nombres | uppercase).charAt(0) : 'V' }}
+            </div>
+            <div>
+              <div class="text-muted">Colaborador</div>
+              <div class="fw-semibold">{{ model.nombres | uppercase }}</div>
+              <div class="small text-muted">{{ model.especialidad || 'Sin especialidad' }}</div>
+            </div>
+          </div>
+          <div class="row text-center g-2">
+            <div class="col-6">
+              <div class="border rounded p-2">
+                <div class="text-muted small">Dias</div>
+                <div class="fw-semibold">{{ model.dias }}</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="border rounded p-2">
+                <div class="text-muted small">Monto/dia</div>
+                <div class="fw-semibold">{{ model.montoDia | currency:'PEN' }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 p-3 rounded bg-light">
+            <div class="text-muted">Importe total</div>
+            <div class="display-6 text-primary fw-semibold">
+              {{ model.importe | currency:'PEN' }}
+            </div>
+          </div>
+          <div class="mt-3">
+            <div class="text-muted small">Motivo</div>
+            <div class="fw-semibold">{{ model.motivo || 'Sin motivo' }}</div>
+          </div>
+          @if (guardadoMensaje) {
+          <div class="alert alert-success">
+            {{ guardadoMensaje }}
+          </div>
+          }
+          @if (errorMensaje) {
+          <div class="alert alert-danger">
+            {{ errorMensaje }}
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title">Registros guardados</h5>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th>DNI</th>
+              <th>Colaborador</th>
+              <th>Dias</th>
+              <th>Monto dia</th>
+              <th>Importe</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (registro of registros; track registro.id) {
+            <tr>
+              <td>{{ registro.dni }}</td>
+              <td>{{ registro.nombres | uppercase }}</td>
+              <td>{{ registro.dias }}</td>
+              <td>{{ registro.montoDia | currency:'PEN' }}</td>
+              <td>{{ registro.importe | currency:'PEN' }}</td>
+              <td class="text-end">
+                <button class="btn btn-sm btn-outline-primary me-2" type="button" (click)="seleccionar(registro)">
+                  Editar
+                </button>
+                <button class="btn btn-sm btn-outline-danger" type="button" (click)="eliminar(registro)">
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+        @if (registros.length === 0) {
+        <div class="alert alert-info mb-0">No hay registros guardados.</div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

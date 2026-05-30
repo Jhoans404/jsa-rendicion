@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background: linear-gradient(180deg, #f7f6f2 0%, #eef3f7 60%, #ffffff 100%);
+  font-family: "Fira Sans", "Segoe UI", sans-serif;
+  color: #1e2a33;
+}
+
+.app-main {
+  min-height: calc(100vh - 56px);
+  padding: 2rem 1.25rem 3rem;
+}

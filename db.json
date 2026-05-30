@@ -1,0 +1,100 @@
+{
+  "colaboradores": [],
+  "viaticos": [
+    {
+      "dni": "74280470",
+      "especialidad": "recursos humanos",
+      "nombres": "Juan Carlos Rojas Fernandez",
+      "motivo": "Supervision operativa",
+      "dias": 32,
+      "montoDia": 32,
+      "importe": 1024,
+      "firma": "",
+      "huella": "",
+      "firmaArchivo": "",
+      "huellaArchivo": "",
+      "id": "HsFdtksuM7I"
+    },
+    {
+      "dni": "74280477",
+      "especialidad": "Contabilidad",
+      "nombres": "Karla Rojas Masias",
+      "motivo": "Visita de inspeccion",
+      "dias": 20,
+      "montoDia": 55,
+      "importe": 1100,
+      "firma": false,
+      "huella": false,
+      "firmaArchivo": "",
+      "huellaArchivo": "",
+      "id": "qySf9nJkaOA"
+    }
+  ],
+  "comisiones": [
+    {
+      "dni": "74280470",
+      "especialidad": "recursos humanos",
+      "nombres": "Juan Carlos Rojas Fernandez",
+      "lugar": "sullana",
+      "fechaInicio": "2026-05-21",
+      "fechaFin": "2026-05-22",
+      "id": "_aHo3s8mVJU"
+    }
+  ],
+  "rendiciones": [
+    {
+      "siaf": "33333455",
+      "dependencia": "Gerencia Administrativa",
+      "dni": "74280477",
+      "especialidad": "Logística",
+      "nombres": "Juan Carlos Rojas Fernandez",
+      "motivo": "Supervisión ",
+      "lugar": "sullana",
+      "clasificador": "2.3.2.1 Viáticos",
+      "fecha": "2026-05-27",
+      "boletas": [
+        {
+          "numero": "2",
+          "monto": 1500,
+          "fecha": "2026-05-29",
+          "razon": "Transportes El Sol SAC"
+        },
+        {
+          "numero": "",
+          "monto": 0,
+          "fecha": "",
+          "razon": ""
+        }
+      ],
+      "id": "49wZt4cXJA4"
+    },
+    {
+      "siaf": "56467567567",
+      "dependencia": "Logística",
+      "dni": "76283722",
+      "especialidad": "",
+      "nombres": "Karla Rojas Masias",
+      "motivo": "Inspección",
+      "lugar": "Trujillo",
+      "clasificador": "",
+      "fecha": "2026-05-28",
+      "boletas": [
+        {
+          "numero": "5",
+          "monto": 45,
+          "fecha": "2026-05-20",
+          "razon": "Hotel Andino SRL"
+        },
+        {
+          "numero": "",
+          "monto": 0,
+          "fecha": "",
+          "razon": ""
+        }
+      ],
+      "id": "mnQN840t-jg"
+    }
+  ],
+  "boletas": [],
+  "$schema": "./node_modules/json-server/schema.json"
+}

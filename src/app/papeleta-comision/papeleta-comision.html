@@ -1,0 +1,72 @@
+<section class="container">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h4 class="card-title">Papeleta de comision</h4>
+      <form #form="ngForm" (ngSubmit)="enviar()">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label">DNI</label>
+            <input class="form-control" name="dni" [(ngModel)]="model.dni" required />
+            @if (form.submitted && !model.dni) {
+            <div class="text-danger">
+              DNI obligatorio
+            </div>
+            }
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Especialidad</label>
+            <input class="form-control" name="especialidad" [(ngModel)]="model.especialidad" />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Lugar</label>
+            <input class="form-control" name="lugar" [(ngModel)]="model.lugar" />
+          </div>
+          <div class="col-md-12">
+            <label class="form-label">Apellidos y nombres</label>
+            <input
+              class="form-control"
+              name="nombres"
+              [(ngModel)]="model.nombres"
+              required
+            />
+            @if (form.submitted && !model.nombres) {
+            <div class="text-danger">
+              Nombre obligatorio
+            </div>
+            }
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Fecha inicio comision</label>
+            <input
+              type="date"
+              class="form-control"
+              name="fechaInicio"
+              [(ngModel)]="model.fechaInicio"
+              required
+              [class.is-invalid]="form.submitted && !model.fechaInicio"
+            />
+            <div class="invalid-feedback">Fecha inicio obligatoria</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Fecha termino comision</label>
+            <input
+              type="date"
+              class="form-control"
+              name="fechaFin"
+              [(ngModel)]="model.fechaFin"
+            />
+          </div>
+        </div>
+        <div class="mt-4 d-flex gap-2">
+          <button class="btn btn-primary" type="submit" [disabled]="guardando">Guardar</button>
+          <button class="btn btn-outline-secondary" type="button" (click)="limpiar()">Limpiar</button>
+        </div>
+        @if (mensaje) {
+        <div class="alert mt-3" [class.alert-success]="mensaje === 'Papeleta guardada.'" [class.alert-danger]="mensaje !== 'Papeleta guardada.'">
+          {{ mensaje }}
+        </div>
+        }
+      </form>
+    </div>
+  </div>
+</section>

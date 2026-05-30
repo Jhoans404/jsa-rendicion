@@ -1,0 +1,175 @@
+<section class="container">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h4 class="card-title">Formato de rendicion de cuentas</h4>
+      <form #form="ngForm" (ngSubmit)="enviar()">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="form-label">Numero SIAF</label>
+            <input
+              class="form-control"
+              name="siaf"
+              [(ngModel)]="model.siaf"
+              required
+              [class.is-invalid]="form.submitted && !model.siaf"
+            />
+            <div class="invalid-feedback">SIAF obligatorio</div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Dependencia</label>
+            <input class="form-control" name="dependencia" [(ngModel)]="model.dependencia" />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Fecha</label>
+            <input
+              type="date"
+              class="form-control"
+              name="fecha"
+              [(ngModel)]="model.fecha"
+              required
+              [class.is-invalid]="form.submitted && !model.fecha"
+            />
+            <div class="invalid-feedback">Fecha obligatoria</div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">DNI</label>
+            <input
+              class="form-control"
+              name="dni"
+              [(ngModel)]="model.dni"
+              required
+              [class.is-invalid]="form.submitted && !model.dni"
+            />
+            <div class="invalid-feedback">DNI obligatorio</div>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Especialidad</label>
+            <input class="form-control" name="especialidad" [(ngModel)]="model.especialidad" />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Clasificador</label>
+            <input class="form-control" name="clasificador" [(ngModel)]="model.clasificador" />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Apellidos y nombres</label>
+            <input class="form-control" name="nombres" [(ngModel)]="model.nombres" />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Motivo de comision</label>
+            <input class="form-control" name="motivo" [(ngModel)]="model.motivo" />
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Lugar de comision</label>
+            <input class="form-control" name="lugar" [(ngModel)]="model.lugar" />
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <h5>Boletas</h5>
+          <div class="table-responsive">
+            <table class="table table-striped align-middle">
+              <thead>
+                <tr>
+                  <th>Numero</th>
+                  <th>Monto</th>
+                  <th>Fecha</th>
+                  <th>Razon social</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (boleta of model.boletas; track $index) {
+                <tr>
+                  <td>
+                    <input class="form-control" name="numero{{ $index }}" [(ngModel)]="boleta.numero" />
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="monto{{ $index }}"
+                      [(ngModel)]="boleta.monto"
+                      min="1"
+                      [class.is-invalid]="form.submitted && boleta.monto <= 0"
+                    />
+                  </td>
+                  <td>
+                    <input type="date" class="form-control" name="fecha{{ $index }}" [(ngModel)]="boleta.fecha" />
+                  </td>
+                  <td>
+                    <input class="form-control" name="razon{{ $index }}" [(ngModel)]="boleta.razon" />
+                  </td>
+                  <td class="text-end">
+                    <button type="button" class="btn btn-sm btn-outline-danger" (click)="eliminarBoleta($index)">
+                      Quitar
+                    </button>
+                  </td>
+                </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+          <button type="button" class="btn btn-outline-primary" (click)="agregarBoleta()">
+            Agregar boleta
+          </button>
+        </div>
+
+        <div class="mt-4 d-flex gap-2">
+          <button class="btn btn-primary" type="submit" [disabled]="guardando">
+            {{ seleccion ? 'Actualizar' : 'Guardar' }}
+          </button>
+          <button class="btn btn-outline-secondary" type="button" (click)="limpiar()">Limpiar</button>
+        </div>
+        @if (mensaje) {
+        <div class="alert mt-3" [class.alert-success]="mensaje.includes('guardada') || mensaje.includes('actualizada')" [class.alert-danger]="mensaje.includes('No se pudo')">
+          {{ mensaje }}
+        </div>
+        }
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="container mt-4">
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title">Rendiciones registradas</h5>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th>SIAF</th>
+              <th>Colaborador</th>
+              <th>Dependencia</th>
+              <th>Fecha</th>
+              <th>Boletas</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (registro of registros; track registro.id) {
+            <tr>
+              <td>{{ registro.siaf }}</td>
+              <td>{{ registro.nombres }}</td>
+              <td>{{ registro.dependencia | titlecase }}</td>
+              <td>{{ registro.fecha | date:'shortDate' }}</td>
+              <td>{{ registro.boletas.length }}</td>
+              <td class="text-end">
+                <button class="btn btn-sm btn-outline-primary me-2" type="button" (click)="seleccionar(registro)">
+                  Editar
+                </button>
+                <button class="btn btn-sm btn-outline-danger" type="button" (click)="eliminar(registro)">
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+        @if (registros.length === 0) {
+        <div class="alert alert-info mb-0">No hay rendiciones registradas.</div>
+        }
+      </div>
+    </div>
+  </div>
+</section>
