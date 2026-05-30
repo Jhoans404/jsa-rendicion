@@ -1,28 +1,21 @@
-# Stage 1: Build
+# Stage 1: Build Angular app
 FROM node:alpine AS build
 
 WORKDIR /app
 
-# Copy package files
 COPY package*.json ./
-# If pnpm is used, you might need to install it or use npm.
-# Based on package.json, npm is present.
 RUN npm install
 
-# Copy source code
 COPY . .
-
-# Build the application
 RUN npm run build
 
-# Stage 2: Runtime
+# Stage 2: Serve with nginx
 FROM nginx:alpine
 
-# Copy custom nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# nginx procesa automáticamente los templates en /etc/nginx/templates/
+# reemplazando variables de entorno (como BACKEND_URL) al iniciar
+COPY nginx.conf /etc/nginx/templates/default.conf.template
 
-# Copy build artifacts from build stage
-# Note: Angular 17+ build output is usually in dist/<project-name>/browser
 COPY --from=build /app/dist/jsa-rendicion/browser /usr/share/nginx/html
 
 EXPOSE 80

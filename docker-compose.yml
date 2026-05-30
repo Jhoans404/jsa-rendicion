@@ -1,12 +1,12 @@
 services:
   backend:
     build:
-      context: .
-      dockerfile: Dockerfile.backend
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
     volumes:
-      - ./db.json:/app/db.json
+      - ./backend/db.json:/app/db.json
     networks:
       - jsa-network
 
@@ -16,6 +16,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
+    environment:
+      - BACKEND_URL=http://backend:3000
     depends_on:
       - backend
     networks:

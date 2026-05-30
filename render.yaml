@@ -1,0 +1,21 @@
+services:
+  # Backend: json-server con db.json
+  - type: web
+    name: jsa-rendicion-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    envVars:
+      - key: PORT
+        value: 3000
+
+  # Frontend: Angular con nginx
+  - type: web
+    name: jsa-rendicion-frontend
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: BACKEND_URL
+        # Reemplaza con la URL real de tu backend en Render
+        value: https://jsa-rendicion-api.onrender.com
