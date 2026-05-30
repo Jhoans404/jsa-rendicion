@@ -1,81 +1,81 @@
-# Docker Deployment Guide - JSA Rendición
+# Guía de Despliegue con Docker - JSA Rendición
 
-This project is containerized using Docker to provide a consistent environment for both the frontend (Angular) and the backend (`json-server`).
+Este proyecto está contenedorizado utilizando Docker para proporcionar un entorno consistente tanto para el frontend (Angular) como para el backend (`json-server`).
 
-## Architecture
+## Arquitectura
 
-- **Frontend**: Angular application served by Nginx.
-- **Backend**: `json-server` providing a REST API based on `db.json`.
+- **Frontend**: Aplicación Angular servida por Nginx.
+- **Backend**: `json-server` que proporciona una API REST basada en el archivo `db.json`.
 
-## Getting Started
+## Primeros Pasos
 
-### Running Everything Together (Recommended)
+### Ejecutar Todo el Sistema (Recomendado)
 
-The easiest way to start the entire application is using Docker Compose.
+La forma más sencilla de iniciar toda la aplicación es utilizando Docker Compose.
 
-1. **Start the services**:
+1. **Iniciar los servicios**:
    ```bash
    docker-compose up -d
    ```
 
-2. **Access the application**:
+2. **Acceder a la aplicación**:
    - Frontend: [http://localhost](http://localhost)
-   - Backend API: [http://localhost:3000](http://localhost:3000)
+   - API del Backend: [http://localhost:3000](http://localhost:3000)
 
-3. **Stop the services**:
+3. **Detener los servicios**:
    ```bash
    docker-compose down
    ```
 
 ---
 
-## Running Services Separately
+## Ejecución de Servicios por Separado
 
-If you need to isolate or debug a specific component, you can run them independently.
+Si necesitas aislar o depurar un componente específico, puedes ejecutarlos independientemente.
 
-### 1. Backend Only
+### 1. Solo el Backend
 
-**Build the image**:
+**Construir la imagen**:
 ```bash
 docker build -f Dockerfile.backend -t jsa-backend .
 ```
 
-**Run the container**:
+**Ejecutar el contenedor**:
 ```bash
 docker run -d -p 3000:3000 -v $(pwd)/db.json:/app/db.json --name jsa-backend-container jsa-backend
 ```
-*Note: The `-v` flag ensures that changes to `db.json` on your host machine are reflected in the container and vice-versa.*
+*Nota: La bandera `-v` asegura que los cambios en `db.json` en tu máquina local se reflejen en el contenedor y viceversa.*
 
-### 2. Frontend Only
+### 2. Solo el Frontend
 
-**Build the image**:
+**Construir la imagen**:
 ```bash
 docker build -t jsa-frontend .
 ```
 
-**Run the container**:
+**Ejecutar el contenedor**:
 ```bash
 docker run -d -p 80:80 --name jsa-frontend-container jsa-frontend
 ```
-*Note: If the frontend is running separately, it will attempt to connect to the backend. You may need to adjust the API URL in the Angular services if the backend is not running on the same machine or is on a different port.*
+*Nota: Si el frontend se ejecuta por separado, intentará conectarse al backend. Es posible que necesites ajustar la URL de la API en los servicios de Angular si el backend no se encuentra en la misma máquina o utiliza un puerto diferente.*
 
 ---
 
-## Configuration Details
+## Detalles de Configuración
 
-### Port Mappings
-| Service | Container Port | Host Port | URL |
+### Mapeo de Puertos
+| Servicio | Puerto Contenedor | Puerto Host | URL |
 | :--- | :--- | :--- | :--- |
 | Frontend | 80 | 80 | http://localhost |
 | Backend | 3000 | 3000 | http://localhost:3000 |
 
-### Nginx Proxy
-The frontend is configured with a custom `nginx.conf` that proxies requests starting with `/api` to the `backend` service. This helps avoid CORS issues when running in Docker.
+### Proxy de Nginx
+El frontend está configurado con un `nginx.conf` personalizado que redirige las solicitudes que comienzan con `/api` al servicio `backend`. Esto ayuda a evitar problemas de CORS al ejecutar en Docker.
 
-## Troubleshooting
+## Solución de Problemas
 
-- **Build fails**: Ensure you have Docker installed and that you are running the commands from the project root.
-- **Frontend cannot connect to Backend**: 
-    - If using `docker-compose`, ensure the service name in `nginx.conf` matches the service name in `docker-compose.yml` (`backend`).
-    - If running separately, ensure the backend is accessible at the URL specified in your Angular services.
-- **Data not persisting**: Ensure the volume mount for `db.json` is correctly configured in the `docker run` command or `docker-compose.yml`.
+- **Fallo en la construcción**: Asegúrate de tener Docker instalado y de ejecutar los comandos desde la raíz del proyecto.
+- **El Frontend no se conecta al Backend**: 
+    - Si usas `docker-compose`, asegúrate de que el nombre del servicio en `nginx.conf` coincida con el nombre del servicio en `docker-compose.yml` (`backend`).
+    - Si los ejecutas por separado, asegúrate de que el backend sea accesible en la URL especificada en tus servicios de Angular.
+- **Los datos no persisten**: Asegúrate de que el montaje del volumen para `db.json` esté correctamente configurado en el comando `docker run` o en `docker-compose.yml`.

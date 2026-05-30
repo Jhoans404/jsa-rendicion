@@ -1,59 +1,59 @@
 # JsaRendicion
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.26.
+Este proyecto fue generado utilizando [Angular CLI](https://github.com/angular/angular-cli) versión 20.3.26.
 
-## Development server
+## Servidor de Desarrollo
 
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Para iniciar un servidor de desarrollo local, ejecuta:
 
 ```bash
-ng generate component component-name
+npm start
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Una vez que el servidor esté en funcionamiento, abre tu navegador y navega a `http://localhost:4200/`. La aplicación se recargará automáticamente cada vez que modifiques cualquier archivo de origen.
+
+## Andamiaje de Código (Scaffolding)
+
+Angular CLI incluye potentes herramientas de generación de código. Para generar un nuevo componente, ejecuta:
+
+```bash
+ng generate component nombre-del-componente
+```
+
+Para obtener una lista completa de los esquemas disponibles (como `components`, `directives` o `pipes`), ejecuta:
 
 ```bash
 ng generate --help
 ```
 
-## Building
+## Construcción (Build)
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Para construir el proyecto, ejecuta:
 
 ```bash
-ng test
+npm run build
 ```
 
-## Running end-to-end tests
+Esto compilará tu proyecto y almacenará los artefactos de construcción en el directorio `dist/`. Por defecto, la construcción de producción optimiza tu aplicación para mejorar el rendimiento y la velocidad.
 
-For end-to-end (e2e) testing, run:
+## Ejecución de Pruebas Unitarias
+
+Para ejecutar las pruebas unitarias con el ejecutor de pruebas [Karma](https://karma-runner.github.io), utiliza el siguiente comando:
+
+```bash
+npm test
+```
+
+## Ejecución de Pruebas End-to-End
+
+Para las pruebas de extremo a extremo (e2e), ejecuta:
 
 ```bash
 ng e2e
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Angular CLI no viene con un framework de pruebas end-to-end por defecto. Puedes elegir el que mejor se adapte a tus necesidades.
 
-## Additional Resources
+## Recursos Adicionales
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Para más información sobre el uso de Angular CLI, incluyendo referencias detalladas de comandos, visita la página de [Vista General y Referencia de Comandos de Angular CLI](https://angular.dev/tools/cli).
