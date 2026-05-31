@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CurrencyPipe, DatePipe, TitleCasePipe } from '@angular/common';
+import { DatePipe, TitleCasePipe } from '@angular/common';
 import { RendicionService, Rendicion } from '../services/rendicion.service';
 
 @Component({
   selector: 'app-consulta-rendiciones',
-  imports: [FormsModule, CurrencyPipe, DatePipe, TitleCasePipe],
+  imports: [FormsModule, DatePipe, TitleCasePipe],
   templateUrl: './consulta-rendiciones.html',
   styleUrl: './consulta-rendiciones.css',
 })

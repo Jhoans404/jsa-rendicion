@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { ComisionService } from '../services/comision.service';
 
 @Component({
   selector: 'app-papeleta-comision',
@@ -22,9 +22,7 @@ export class PapeletaComision {
   guardando = false;
   mensaje = '';
 
-  private readonly baseUrl = 'http://localhost:3000/comisiones';
-
-  constructor(private http: HttpClient) {}
+  constructor(private comisionService: ComisionService) {}
 
   enviar() {
     this.submitted = true;
@@ -33,7 +31,7 @@ export class PapeletaComision {
       return;
     }
     this.guardando = true;
-    this.http.post(this.baseUrl, this.model).subscribe({
+    this.comisionService.guardar(this.model).subscribe({
       next: () => {
         this.mensaje = 'Papeleta guardada.';
         this.guardando = false;
